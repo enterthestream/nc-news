@@ -12,11 +12,33 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #ffffffaa);
 }
 
 .card {
   padding: 2em;
+}
+
+.header a {
+  color: rgb(255, 255, 255);
+  background-color: #007d41;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.header a:hover {
+  background-color: #00532b;
+  transform: scale(1.05);
+  color: white;
+}
+
+.navigation {
+  display: flex;
+  gap: 10px;
 }
 
 .article-card {

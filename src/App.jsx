@@ -1,16 +1,11 @@
-import { useState } from "react";
-import ArticlesList from "../components/ArticlesList";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import FrontPage from "../components/FrontPage";
 
 function App() {
-  const [articles, setArticles] = useState([]);
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<ArticlesList articles={articles} setArticles={setArticles} />}
-      />
+      <Route path="/" element={<FrontPage />} />
     </Routes>
   );
 }
