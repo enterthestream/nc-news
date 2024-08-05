@@ -14,29 +14,47 @@
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
 .card {
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
+.article-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 16px;
+  padding: 16px;
+  background-color: rgb(214, 246, 214);
+}
+
+.article-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.article-card .author-in-topic {
+  font-size: 14px;
+  color: #555;
+}
+
+.article-card .votes {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin: 8px;
+}
+
+.article-card h3 {
+  font-size: 24px;
+}
+
+.article-card p {
+  font-size: 14px;
+  margin: 8px;
+}
+
+.article-card .author-topic {
+  color: #2c783e;
 }
