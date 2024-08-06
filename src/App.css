@@ -5,6 +5,13 @@
   text-align: center;
 }
 
+:root{
+  color-scheme: light dark;
+}
+
+
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -42,12 +49,13 @@
 }
 
 .article-card {
-  border: 1px solid #ddd;
+  border: 1px solid #f8f8f8;
   border-radius: 12px;
   overflow: hidden;
   margin: 16px;
   padding: 16px;
   background-color: rgb(225, 250, 225);
+  color: #050505;
 }
 
 .article-card img {
@@ -62,7 +70,7 @@
   color: #555;
 }
 
-.article-card .votes {
+.article-card .num-votes {
   font-style: ;
   font-size: 20px;
   font-weight: bold;
@@ -88,10 +96,27 @@
   text-align: left;
 }
 
+.article-link {
+  text-decoration: none;
+  color:inherit;
+  cursor: pointer;
+  transition: text-shadow 0.3s ease;
+
+}
+
+.article-link:hover {
+color: currentColor;
+  
+  text-shadow: 0 0 5px rgba(11, 66, 16, 0.2);
+}
+
 .comment-card {
-  margin: 12px;
-  padding: 6px;
+  margin: 14px;
+  padding: 8px;
   text-align: left;
+  color: #030303;
+  background-color: rgb(244, 255, 245);
+  border-radius: 12px;
 }
 
 .comment-card .header {
@@ -128,4 +153,25 @@
 .comment-card .dot {
   color: #465042;
   margin: 8px;
+}
+
+.votes{
+  display: flex;
+  align-items: center;
+}
+
+.vote-button {
+  font-size: 20px;
+  padding: 1px;
+  transition: color 0.3s ease;
+  border-radius: 16px;
+  background-color: whitesmoke;
+}
+
+.upvote {
+  color: green;
+}
+
+.downvote {
+  color: red;
 }

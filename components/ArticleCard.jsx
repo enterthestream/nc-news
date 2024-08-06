@@ -1,4 +1,6 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { updateArticleById } from "../src/api";
+import { useState } from "react";
 
 export default function ArticleCard({
   article_id,
@@ -12,6 +14,8 @@ export default function ArticleCard({
   body,
   isOnArticlePage = false,
 }) {
+  const [vote, setVote] = useState(votes);
+
   const navigate = useNavigate();
 
   const handleArticleClick = (event) => {
@@ -22,9 +26,34 @@ export default function ArticleCard({
     }
   };
 
+  const handleUpVote = (event) => {
+    event.preventDefault();
+
+    setVote((currVote) => {
+      return currVote + 1;
+    });
+    updateArticleById(article_id, 1).catch(() => {
+      return currVote - 1;
+    });
+  };
+
+  const handleDownVote = (event) => {
+    event.preventDefault();
+
+    setVote((currVote) => {
+      return currVote - 1;
+    });
+    updateArticleById(article_id, -1).catch(() => {
+      return currVote + 1;
+    });
+  };
+
   return (
-    <div className="article-card" onClick={handleArticleClick}>
-      <h3>{title}</h3>
+    <div className="article-card">
+      <a href={`/articles/${article_id}`} className="article-link">
+        <h3 onClick={handleArticleClick}>{title}</h3>
+      </a>
+
       <h4 className="author-in-topic">
         <span className="author-topic">{author}</span> {""}in {""}
         <span className="author-topic">{topic}</span>
@@ -35,7 +64,17 @@ export default function ArticleCard({
         className="img-article-card"
       />
       {showBody && <p className="body">{body}</p>}
-      <h4 className="votes">{votes} votes</h4>
+      <div className="votes">
+        <button className="vote-button upvote" onClick={handleUpVote}>
+          ⇧
+        </button>
+        <h4 className="num-votes">{vote} votes</h4>
+
+        <button className="vote-button downvote" onClick={handleDownVote}>
+          ⇩
+        </button>
+      </div>
+
       <p>{comment_count ? `${comment_count} comments` : `0 comments`}</p>
     </div>
   );

@@ -24,4 +24,13 @@ const getCommentsByArticleId = (article_id) => {
     });
 };
 
-export { getAllArticles, getArticleById, getCommentsByArticleId };
+const updateArticleById = (article_id, inc_votes) => {
+  return api.patch(`/articles/${article_id}`, { inc_votes });
+};
+
+export {
+  getAllArticles,
+  getArticleById,
+  getCommentsByArticleId,
+  updateArticleById,
+};
