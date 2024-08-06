@@ -47,13 +47,14 @@
   overflow: hidden;
   margin: 16px;
   padding: 16px;
-  background-color: rgb(214, 246, 214);
+  background-color: rgb(225, 250, 225);
 }
 
 .article-card img {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 12px;
 }
 
 .article-card .author-in-topic {
@@ -85,4 +86,46 @@
 .article-card .body {
   font-size: 16px;
   text-align: left;
+}
+
+.comment-card {
+  margin: 12px;
+  padding: 6px;
+  text-align: left;
+}
+
+.comment-card .header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.comment-card .author {
+  margin-right: 10px;
+}
+
+.comment-card .time-since-posted {
+  margin: 0;
+  color: #465042;
+}
+
+.comment-card .avatar {
+  margin-right: 8px;
+}
+
+.comment-card .body {
+  margin: 0 0 4px 20px;
+}
+
+.comment-card .votes {
+  font-style ;
+  font-size: 16px;
+  font-weight:normal;
+  color: #313e2d;
+  margin: 0 10px;
+}
+
+.comment-card .dot {
+  color: #465042;
+  margin: 8px;
 }
