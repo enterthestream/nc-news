@@ -24,12 +24,14 @@ export default function ArticlesList({ articles, setArticles }) {
         return (
           <ArticleCard
             key={article_id}
+            article_id={article_id}
             author={author}
             title={title}
             votes={votes}
             article_img_url={article_img_url}
             comment_count={comment_count}
             topic={topic}
+            showBody={false}
           />
         );
       })}

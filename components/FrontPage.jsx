@@ -1,9 +1,7 @@
-import { useState } from "react";
 import ArticlesList from "./ArticlesList";
 import Header from "./Header";
 
-export default function FrontPage() {
-  const [articles, setArticles] = useState([]);
+export default function FrontPage({ articles, setArticles }) {
   return (
     <div className="frontpage">
       <Header />

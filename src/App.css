@@ -62,6 +62,7 @@
 }
 
 .article-card .votes {
+  font-style: ;
   font-size: 20px;
   font-weight: bold;
   color: #333;
@@ -79,4 +80,9 @@
 
 .article-card .author-topic {
   color: #2c783e;
+}
+
+.article-card .body {
+  font-size: 16px;
+  text-align: left;
 }
