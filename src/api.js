@@ -16,4 +16,12 @@ const getArticleById = (article_id) => {
   });
 };
 
-export { getAllArticles, getArticleById };
+const getCommentsByArticleId = (article_id) => {
+  return api
+    .get(`/articles/${article_id}/comments`)
+    .then(({ data: { comments } }) => {
+      return comments;
+    });
+};
+
+export { getAllArticles, getArticleById, getCommentsByArticleId };

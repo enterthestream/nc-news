@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
 import Header from "./Header";
 import { getArticleById } from "../src/api";
+import CommentsList from "./CommentsList";
 
 export default function ArticlePage() {
   const { article_id } = useParams();
@@ -34,7 +35,9 @@ export default function ArticlePage() {
         topic={article.topic}
         showBody={true}
         body={article.body}
+        isOnArticlePage={true}
       />
+      <CommentsList article_id={article_id} article={article} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function ArticleCard({
   article_id,
@@ -10,11 +10,16 @@ export default function ArticleCard({
   topic,
   showBody = false,
   body,
+  isOnArticlePage = false,
 }) {
   const navigate = useNavigate();
 
-  const handleArticleClick = () => {
-    navigate(`/articles/${article_id}`);
+  const handleArticleClick = (event) => {
+    event.preventDefault();
+
+    if (!isOnArticlePage && article_id) {
+      navigate(`/articles/${article_id}`);
+    }
   };
 
   return (
