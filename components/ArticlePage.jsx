@@ -27,6 +27,7 @@ export default function ArticlePage() {
     <div className="article-page">
       <Header />
       <ArticleCard
+        article_id={article_id}
         author={article.author}
         title={article.title}
         votes={article.votes}
