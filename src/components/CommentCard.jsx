@@ -1,4 +1,4 @@
-export default function CommentCard({ comment, article }) {
+export default function CommentCard({ comment, article, showPostedComment }) {
   if (!comment || Object.keys(comment).length === 0) {
     return (
       <div className="comment-card">

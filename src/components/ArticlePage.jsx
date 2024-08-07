@@ -2,8 +2,9 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
 import Header from "./Header";
-import { getArticleById } from "../src/api";
+import { getArticleById } from "../api";
 import CommentsList from "./CommentsList";
+import CommentForm from "./CommentForm";
 
 export default function ArticlePage() {
   const { article_id } = useParams();
@@ -38,6 +39,7 @@ export default function ArticlePage() {
         body={article.body}
         isOnArticlePage={true}
       />
+      <CommentForm article_id={article_id} />
       <CommentsList article_id={article_id} article={article} />
     </div>
   );

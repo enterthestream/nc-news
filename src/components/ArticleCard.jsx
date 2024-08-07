@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { updateArticleById } from "../src/api";
+import { updateArticleById } from "../api";
 import { useState } from "react";
 
 export default function ArticleCard({

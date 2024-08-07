@@ -1,8 +1,8 @@
 import "./App.css";
 import { Routes, Route, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import FrontPage from "../components/FrontPage";
-import ArticlePage from "../components/ArticlePage";
+import FrontPage from "./components/FrontPage";
+import ArticlePage from "./components/ArticlePage";
 
 function App() {
   const [articles, setArticles] = useState([]);

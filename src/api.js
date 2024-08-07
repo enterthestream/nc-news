@@ -28,9 +28,14 @@ const updateArticleById = (article_id, inc_votes) => {
   return api.patch(`/articles/${article_id}`, { inc_votes });
 };
 
+const postComment = (article_id, username, body) => {
+  return api.post(`/articles/${article_id}/comments`, { username, body });
+};
+
 export {
   getAllArticles,
   getArticleById,
   getCommentsByArticleId,
   updateArticleById,
+  postComment,
 };
