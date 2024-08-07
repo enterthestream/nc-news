@@ -22,6 +22,10 @@
   filter: drop-shadow(0 0 2em #ffffffaa);
 }
 
+.hidden {
+  display: none;
+}
+
 .card {
   padding: 2em;
 }
@@ -67,7 +71,7 @@
 
 .article-card .author-in-topic {
   font-size: 14px;
-  color: #555;
+  color: #555555;
 }
 
 .article-card .num-votes {
@@ -110,12 +114,14 @@ color: currentColor;
   text-shadow: 0 0 5px rgba(11, 66, 16, 0.2);
 }
 
+.comments-list {
+  margin-top: 40px;
+}
+
 .comment-card {
   margin: 14px;
   padding: 8px;
   text-align: left;
-  color: #030303;
-  background-color: rgb(244, 255, 245);
   border-radius: 12px;
 }
 
@@ -174,4 +180,80 @@ color: currentColor;
 
 .downvote {
   color: red;
+}
+
+.expandable {
+  color: inherit;
+  padding: 12px;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+
+}
+
+.expandable .submit {
+  background-color: #00532b;
+  font-size: 12px;
+  font-weight: bolder;;
+}
+
+.comment-form{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 14px;
+  padding: 4px;
+  text-align: left;
+  border-radius: 4px;
+  overflow: hidden;
+max-width: 200px;
+  width: 100%;
+  
+}
+
+.comment-form textarea[type="text"] {
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: height 0.3s ease;
+  flex-grow: 1;
+  resize: vertical;
+  min-height: 40px;
+}
+
+.comment-form textarea[type="text"]:focus {
+  min-height: 100px;
+
+}
+
+.comment-form.expanded{
+  max-width: 90%;
+}
+
+.comment-form .submit {
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #008143;
+  font-size: 12px;
+  font-weight: bolder;
+  border-radius: 4px;
+  border: none;
+  align-self: flex-end;
+}
+
+
+.posted-comment.flash {
+  animation: flash 1.5s ease-out;
+}
+
+@keyframes flash{
+  0% {
+    background-color: rgba(0, 147, 12, 0.8);
+    border-radius: 12px;
+  }
+  100% {
+    background-color: transparent;
+  }
 }
