@@ -26,8 +26,6 @@ export default function CommentsList({ article, article_id }) {
           />
         );
       })}
-
-      <p>in comments list</p>
     </div>
   );
 }

@@ -2,23 +2,19 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
 import Header from "./Header";
-import { getArticleById } from "../api";
 import CommentsList from "./CommentsList";
 import CommentForm from "./CommentForm";
 
-export default function ArticlePage() {
+export default function ArticlePage({ articles }) {
   const { article_id } = useParams();
-  const [article, setArticle] = useState();
+  const [article, setArticle] = useState(null);
 
   useEffect(() => {
-    getArticleById(article_id)
-      .then((article) => {
-        setArticle(article);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [article_id]);
+    const foundArticle = articles.find((article) => {
+      return article.article_id === parseInt(article_id);
+    });
+    setArticle(foundArticle);
+  }, [article_id, articles]);
 
   if (!article) {
     return <>loading...</>;

@@ -1,14 +1,6 @@
-import { useEffect } from "react";
-import { getAllArticles } from "../api";
 import ArticleCard from "./ArticleCard";
 
-export default function ArticlesList({ articles, setArticles }) {
-  useEffect(() => {
-    getAllArticles().then((articles) => {
-      setArticles(articles);
-    });
-  }, [setArticles]);
-
+export default function ArticlesList({ articles }) {
   return (
     <div className="articles">
       {articles.map((article) => {
