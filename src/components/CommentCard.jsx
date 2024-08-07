@@ -1,3 +1,5 @@
+import TimeSincePosted from "./TimeSincePosted";
+
 export default function CommentCard({ comment, article, showPostedComment }) {
   if (!comment || Object.keys(comment).length === 0) {
     return (
@@ -8,16 +10,6 @@ export default function CommentCard({ comment, article, showPostedComment }) {
   }
 
   const { author, votes, body, created_at } = comment;
-
-  const currentTime = new Date();
-
-  const createdAt = new Date(created_at);
-  const msTimeSinceComment = currentTime.getTime() - createdAt.getTime();
-
-  const minutes = Math.floor(msTimeSinceComment / 60000);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const monthsApprox = Math.floor(days / 30);
 
   return (
     <div className="comment-card">
@@ -31,7 +23,7 @@ export default function CommentCard({ comment, article, showPostedComment }) {
         <p className="dot">•</p>
         <h4 className="votes"> {votes} votes</h4>
         <p className="dot">•</p>
-        <p className="time-since-posted"> {monthsApprox} months ago</p>
+        <TimeSincePosted created_at={created_at} />
       </div>
 
       <p className="body">{body}</p>
