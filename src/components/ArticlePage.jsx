@@ -1,13 +1,16 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import ArticleCard from "./ArticleCard";
 import Header from "./Header";
 import CommentsList from "./CommentsList";
-import CommentForm from "./CommentForm";
+import { getCommentsByArticleId, deleteComment } from "../api";
 
 export default function ArticlePage({ articles }) {
   const { article_id } = useParams();
   const [article, setArticle] = useState(null);
+  const [articleComments, setArticleComments] = useState([]);
+  const [isLoadingComments, setIsLoadingComments] = useState(true);
+  const [deletedCommentIds, setDeletedCommentIds] = useState([]);
 
   useEffect(() => {
     const foundArticle = articles.find((article) => {
@@ -16,10 +19,42 @@ export default function ArticlePage({ articles }) {
     setArticle(foundArticle);
   }, [article_id, articles]);
 
+  useEffect(() => {
+    setIsLoadingComments(true);
+    getCommentsByArticleId(article_id)
+      .then((fetchedComments) => {
+        setArticleComments(fetchedComments);
+        setIsLoadingComments(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setArticleComments([]);
+      });
+  }, [article_id]);
+
+  const handleDeleteComment = useCallback(
+    (commentId) => {
+      console.log(commentId);
+      return deleteComment(commentId)
+        .then(() => {
+          console.log(commentId);
+          setArticleComments((prevComments) =>
+            prevComments.filter((comment) => comment.comment_id !== commentId)
+          );
+          setDeletedCommentIds((prevDeletedIds) => [
+            ...prevDeletedIds,
+            commentId,
+          ]);
+        })
+
+        .catch((err) => console.error(err));
+    },
+    [setArticleComments, setDeletedCommentIds]
+  );
+
   if (!article) {
     return <>loading...</>;
   }
-
   return (
     <div className="article-page">
       <Header />
@@ -35,8 +70,15 @@ export default function ArticlePage({ articles }) {
         body={article.body}
         isOnArticlePage={true}
       />
-      <CommentForm article_id={article_id} />
-      <CommentsList article_id={article_id} article={article} />
+      <CommentsList
+        article_id={article_id}
+        article={article}
+        articleComments={articleComments}
+        setArticleComments={setArticleComments}
+        isLoading={isLoadingComments}
+        handleDeleteComment={handleDeleteComment}
+        deletedCommentIds={deletedCommentIds}
+      />
     </div>
   );
 }

@@ -1,31 +1,38 @@
-import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
-import { getCommentsByArticleId } from "../api";
+import CommentForm from "./CommentForm";
 
-export default function CommentsList({ article, article_id }) {
-  const [articleComments, setArticleComments] = useState([]);
-
-  useEffect(() => {
-    getCommentsByArticleId(article_id)
-      .then((fetchedComments) => {
-        setArticleComments(fetchedComments);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [article_id]);
-
+export default function CommentsList({
+  article,
+  article_id,
+  articleComments,
+  setArticleComments,
+  isLoading,
+  handleDeleteComment,
+  deletedCommentIds,
+}) {
   return (
-    <div className="comments-list">
-      {articleComments.map((comment) => {
-        return (
-          <CommentCard
-            key={comment.comment_id}
-            comment={comment}
-            article={article}
-          />
-        );
-      })}
+    <div className="article-page">
+      <CommentForm
+        article_id={article_id}
+        setArticleComments={setArticleComments}
+        handleDeleteComment={handleDeleteComment}
+        deletedCommentIds={deletedCommentIds}
+      />
+      <section className="comments-list">
+        {isLoading
+          ? "loading..."
+          : articleComments.map((comment) => {
+              return (
+                <CommentCard
+                  key={comment.comment_id}
+                  comment={comment}
+                  article={article}
+                  handleDeleteComment={handleDeleteComment}
+                  setArticleComments={setArticleComments}
+                />
+              );
+            })}
+      </section>
     </div>
   );
 }
