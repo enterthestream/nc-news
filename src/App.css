@@ -232,7 +232,7 @@ max-width: 200px;
   max-width: 90%;
 }
 
-.comment-form .submit {
+.comment-form .submit{
   margin-top: 10px;
   cursor: pointer;
   background-color: #008143;
@@ -256,4 +256,14 @@ max-width: 200px;
   100% {
     background-color: transparent;
   }
+}
+
+.delete {
+background-color: rgb(238, 0, 0);
+color: whitesmoke;
+font-size: 8px;
+}
+
+.list-button{
+
 }

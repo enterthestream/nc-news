@@ -1,4 +1,12 @@
-export default function CommentCard({ comment, article, showPostedComment }) {
+import { useState, useContext } from "react";
+import TimeSincePosted from "./TimeSincePosted";
+import { LoggedInUserContext } from "../context/UserContext";
+
+export default function CommentCard({ comment, handleDeleteComment }) {
+  const { loggedInUser } = useContext(LoggedInUserContext);
+  const [openToggle, setOpenToggle] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   if (!comment || Object.keys(comment).length === 0) {
     return (
       <div className="comment-card">
@@ -6,22 +14,32 @@ export default function CommentCard({ comment, article, showPostedComment }) {
       </div>
     );
   }
+  const { author, votes, body, created_at, comment_id } = comment;
 
-  const { author, votes, body, created_at } = comment;
+  const startDelete = (event) => {
+    event.preventDefault();
+    setIsDeleting(true);
 
-  const currentTime = new Date();
+    if (loggedInUser.username === author) {
+      handleDeleteComment(comment_id)
+        .then(() => {
+          setIsDeleting(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsDeleting(false);
+        });
+    } else
+      console.error(
+        "You don't have permission to delete this comment, please send a bug report - you should not be able to see this..."
+      );
+  };
 
-  const createdAt = new Date(created_at);
-  const msTimeSinceComment = currentTime.getTime() - createdAt.getTime();
-
-  const minutes = Math.floor(msTimeSinceComment / 60000);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const monthsApprox = Math.floor(days / 30);
+  const handleToggle = () => setOpenToggle(!openToggle);
 
   return (
     <div className="comment-card">
-      <div className="header">
+      <section className="header">
         <img
           className="avatar"
           src={`avatar placeholder img`}
@@ -31,9 +49,21 @@ export default function CommentCard({ comment, article, showPostedComment }) {
         <p className="dot">•</p>
         <h4 className="votes"> {votes} votes</h4>
         <p className="dot">•</p>
-        <p className="time-since-posted"> {monthsApprox} months ago</p>
-      </div>
-
+        <TimeSincePosted created_at={created_at} />
+        <button type="button" onClick={handleToggle} className="list-button">
+          ⋮
+        </button>
+        {openToggle && loggedInUser.username === author && (
+          <button
+            type="button"
+            onClick={startDelete}
+            className="delete list-button"
+            disabled={isDeleting}
+          >
+            {isDeleting ? "Deleting comment..." : "Delete comment"}
+          </button>
+        )}
+      </section>
       <p className="body">{body}</p>
     </div>
   );

@@ -2,8 +2,18 @@ import { useContext, useState } from "react";
 import { postComment } from "../api";
 import { LoggedInUserContext } from "../context/UserContext";
 import CommentCard from "./CommentCard";
+import ErrorComponent from "./ErrorComponents";
 
-export default function CommentForm({ article_id, article }) {
+export default function CommentForm({
+  article_id,
+  article,
+  handleDeleteComment,
+  setArticleComments,
+  deletedCommentIds,
+}) {
+  const { loggedInUser } = useContext(LoggedInUserContext);
+  const [error, setError] = useState(null);
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [showPostedComment, setShowPostedComment] = useState(false);
   const [postedComment, setPostedComment] = useState("");
@@ -12,8 +22,6 @@ export default function CommentForm({ article_id, article }) {
   const [flash, setFlash] = useState(false);
 
   const [isPosting, setIsPosting] = useState(false);
-
-  const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
 
   const handleExpand = () => {
     setIsExpanded(true);
@@ -31,17 +39,20 @@ export default function CommentForm({ article_id, article }) {
     setIsPosting(true);
 
     postComment(article_id, loggedInUser.username, inputComment.body)
-      .then(() => {
+      .then(({ data: { comment } }) => {
+        console.log(comment);
         setShowPostedComment(true);
-        setPostedComment(inputComment);
+        setPostedComment(comment);
         setTextbox("");
         setFlash(true);
         setTimeout(() => {
           setFlash(false);
         }, 1500);
+        setArticleComments((prevComments) => [...prevComments, comment]);
       })
       .catch((err) => {
         console.error("Error when attempting to post comment:", err);
+        setError(err);
       })
       .finally(() => {
         setIsExpanded(false);
@@ -55,6 +66,7 @@ export default function CommentForm({ article_id, article }) {
 
   return (
     <div>
+      {error && <ErrorComponent message={error.message} />}
       <form
         method="post"
         onSubmit={handleSubmit}
@@ -72,27 +84,33 @@ export default function CommentForm({ article_id, article }) {
           required
         />
         {isExpanded && (
-          <button type="submit" className="submit" disabled={isPosting}>
+          <button
+            type="submit"
+            className="submit list-button"
+            disabled={isPosting}
+          >
             {isPosting ? "Posting comment..." : "Add comment"}
           </button>
         )}
       </form>
-
-      {postedComment && showPostedComment && (
-        <div
-          className={`comments-list article-page posted-comment ${
-            flash ? "flash" : ""
-          }`}
-        >
-          <CommentCard
-            article_id={article_id}
-            article={article}
-            comment={postedComment}
-            showPostedComment={showPostedComment}
-            className={flash ? "flash" : ""}
-          />
-        </div>
-      )}
+      {postedComment &&
+        showPostedComment &&
+        !deletedCommentIds.includes(postedComment.comment_id) && (
+          <div
+            className={`comments-list article-page posted-comment ${
+              flash ? "flash" : ""
+            }`}
+          >
+            <CommentCard
+              article_id={article_id}
+              article={article}
+              comment={postedComment}
+              loggedInUser={LoggedInUserContext}
+              className={flash ? "flash" : ""}
+              handleDeleteComment={handleDeleteComment}
+            />
+          </div>
+        )}
     </div>
   );
 }

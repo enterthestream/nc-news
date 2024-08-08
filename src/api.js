@@ -32,10 +32,15 @@ const postComment = (article_id, username, body) => {
   return api.post(`/articles/${article_id}/comments`, { username, body });
 };
 
+const deleteComment = (comment_id) => {
+  return api.delete(`/comments/${comment_id}`);
+};
+
 export {
   getAllArticles,
   getArticleById,
   getCommentsByArticleId,
   updateArticleById,
   postComment,
+  deleteComment,
 };
