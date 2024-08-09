@@ -5,12 +5,9 @@
   text-align: center;
 }
 
-:root{
+:root {
   color-scheme: light dark;
 }
-
-
-
 
 .logo {
   height: 6em;
@@ -28,6 +25,13 @@
 
 .card {
   padding: 2em;
+}
+
+.header {
+  border-bottom: 1px #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header a {
@@ -50,16 +54,34 @@
 .navigation {
   display: flex;
   gap: 10px;
+  align-items: center;
+}
+
+.navigation .avatar {
+  width: 30px;
+  height: auto;
+  border-radius: 25%;
+  vertical-align: middle;
+  object-fit: cover;
+}
+
+.logged-in-user {
+  color: gold !important;
+  font-weight: bolder;
+  border: 2px solid gold;
+  padding: 2px 8px;
 }
 
 .article-card {
-  border: 1px solid #f8f8f8;
+  border: 2px solid transparent;
   border-radius: 12px;
   overflow: hidden;
   margin: 16px;
   padding: 16px;
   background-color: rgb(225, 250, 225);
   color: #050505;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .article-card img {
@@ -102,37 +124,43 @@
 
 .article-link {
   text-decoration: none;
-  color:inherit;
+  color: inherit;
   cursor: pointer;
   transition: text-shadow 0.3s ease;
-
 }
 
 .article-link:hover {
-color: currentColor;
-  
+  color: currentColor;
+
   text-shadow: 0 0 5px rgba(11, 66, 16, 0.2);
 }
 
 .comments-list {
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .comment-card {
+  border: 2px solid transparent;
   margin: 14px;
   padding: 8px;
   text-align: left;
   border-radius: 12px;
+  box-shadow: 0 4px 8x rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .comment-card .header {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  gap: 4px;
+  padding: 8px;
 }
 
-.comment-card .author {
-  margin-right: 10px;
+.comment-card .body {
+  margin: 12px 20px;
 }
 
 .comment-card .time-since-posted {
@@ -145,15 +173,13 @@ color: currentColor;
 }
 
 .comment-card .body {
-  margin: 0 0 4px 20px;
+  margin: 9px 20px;
 }
 
 .comment-card .votes {
-  font-style ;
   font-size: 16px;
-  font-weight:normal;
-  color: #313e2d;
-  margin: 0 10px;
+  font-weight: normal;
+  color: rgba(60, 74, 55, 0.95);
 }
 
 .comment-card .dot {
@@ -161,7 +187,7 @@ color: currentColor;
   margin: 8px;
 }
 
-.votes{
+.votes {
   display: flex;
   align-items: center;
 }
@@ -188,16 +214,15 @@ color: currentColor;
   border: none;
   text-align: left;
   font-size: 16px;
-
 }
 
 .expandable .submit {
   background-color: #00532b;
   font-size: 12px;
-  font-weight: bolder;;
+  font-weight: bolder;
 }
 
-.comment-form{
+.comment-form {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -206,16 +231,15 @@ color: currentColor;
   text-align: left;
   border-radius: 4px;
   overflow: hidden;
-max-width: 200px;
+  max-width: 200px;
   width: 100%;
-  
 }
 
 .comment-form textarea[type="text"] {
   padding: 12px;
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 1px solid transparent;
   border-radius: 4px;
   transition: height 0.3s ease;
   flex-grow: 1;
@@ -225,14 +249,13 @@ max-width: 200px;
 
 .comment-form textarea[type="text"]:focus {
   min-height: 100px;
-
 }
 
-.comment-form.expanded{
+.comment-form.expanded {
   max-width: 90%;
 }
 
-.comment-form .submit{
+.comment-form .submit {
   margin-top: 10px;
   cursor: pointer;
   background-color: #008143;
@@ -243,12 +266,17 @@ max-width: 200px;
   align-self: flex-end;
 }
 
+.list-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+}
 
 .posted-comment.flash {
   animation: flash 1.5s ease-out;
 }
 
-@keyframes flash{
+@keyframes flash {
   0% {
     background-color: rgba(0, 147, 12, 0.8);
     border-radius: 12px;
@@ -259,11 +287,38 @@ max-width: 200px;
 }
 
 .delete {
-background-color: rgb(238, 0, 0);
-color: whitesmoke;
-font-size: 8px;
+  background-color: rgb(238, 0, 0);
+  color: whitesmoke;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-.list-button{
+.topic-card {
+  border: 2px solid transparent;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
+.topic-card-content {
+  padding: 8px;
+  background-color: #07a358;
+}
+
+.topic-card-title {
+  margin: 0;
+  font-size: 2em;
+  color: whitesmoke;
+}
+
+.topic-card-description {
+  margin: 0;
+  font-size: 1.4em;
+  color: rgb(218, 255, 231);
+}
+
+.topic-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

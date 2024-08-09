@@ -1,9 +1,11 @@
 import "./App.css";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import FrontPage from "./components/FrontPage";
 import ArticlePage from "./components/ArticlePage";
 import { getAllArticles } from "./api";
+import TopicsList from "./components/TopicsList";
+import TopicArticles from "./components/TopicArticles";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -21,6 +23,8 @@ function App() {
         path="/articles/:article_id"
         element={<ArticlePage articles={articles} />}
       />
+      <Route path="/topics" element={<TopicsList articles={articles} />} />
+      <Route path="/topics/:topic" element={<TopicArticles />} />
     </Routes>
   );
 }
