@@ -36,6 +36,14 @@ const deleteComment = (comment_id) => {
   return api.delete(`/comments/${comment_id}`);
 };
 
+const getAllTopics = () => {
+  return api.get(`/topics`);
+};
+
+const getArticlesByTopic = (topic) => {
+  return api.get(`/articles?topic=${topic}`);
+};
+
 export {
   getAllArticles,
   getArticleById,
@@ -43,4 +51,6 @@ export {
   updateArticleById,
   postComment,
   deleteComment,
+  getAllTopics,
+  getArticlesByTopic,
 };

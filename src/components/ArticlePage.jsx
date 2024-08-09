@@ -28,16 +28,13 @@ export default function ArticlePage({ articles }) {
       })
       .catch((err) => {
         console.log(err);
-        setArticleComments([]);
       });
   }, [article_id]);
 
   const handleDeleteComment = useCallback(
     (commentId) => {
-      console.log(commentId);
       return deleteComment(commentId)
         .then(() => {
-          console.log(commentId);
           setArticleComments((prevComments) =>
             prevComments.filter((comment) => comment.comment_id !== commentId)
           );
