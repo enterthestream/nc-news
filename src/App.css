@@ -78,9 +78,8 @@
   overflow: hidden;
   margin: 16px;
   padding: 16px;
-  background-color: rgb(225, 250, 225);
   color: #050505;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -321,4 +320,51 @@
 .topic-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown {
+  display: flex;
+  gap: 10px;
+}
+
+.dropdown select {
+  background-color: #07924f;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-align: center;
+  display: inline-flex;
+  padding-right: 30px;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select::after {
+  content: "🢗";
+  font-size: 18px;
+  color: white;
+  padding: 12px, 16px;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.custom-select option:hover {
+  background-color: #07a358;
+}
+
+.custom-select select:focus {
+  background-color: #07a358;
 }
