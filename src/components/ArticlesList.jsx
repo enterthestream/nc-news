@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import ArticleCard from "./ArticleCard";
+import { ArticlesContext } from "../context/ArticlesContext";
 
-export default function ArticlesList({ articles }) {
+export default function ArticlesList() {
+  const { articles } = useContext(ArticlesContext);
+
   return (
     <div className="articles">
       {articles.map((article) => {

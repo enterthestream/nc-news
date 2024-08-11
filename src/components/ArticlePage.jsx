@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import ArticleCard from "./ArticleCard";
 import Header from "./Header";
 import CommentsList from "./CommentsList";
 import { getCommentsByArticleId, deleteComment } from "../api";
+import { ArticlesContext } from "../context/ArticlesContext";
 
-export default function ArticlePage({ articles }) {
+export default function ArticlePage() {
+  const { articles } = useContext(ArticlesContext);
   const { article_id } = useParams();
   const [article, setArticle] = useState(null);
   const [articleComments, setArticleComments] = useState([]);
@@ -63,8 +65,8 @@ export default function ArticlePage({ articles }) {
         article_img_url={article.article_img_url}
         comment_count={article.comment_count}
         topic={article.topic}
-        showBody={true}
         body={article.body}
+        showBody={true}
         isOnArticlePage={true}
       />
       <CommentsList

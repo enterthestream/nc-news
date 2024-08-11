@@ -4,10 +4,33 @@ const api = axios.create({
   baseURL: "https://scoop-scroller-nc-news.onrender.com/api",
 });
 
-const getAllArticles = () => {
-  return api.get("/articles").then(({ data: { articles } }) => {
-    return articles;
-  });
+const getArticles = (topic, sortBy = "created_at", order = "desc") => {
+  let url = `/articles`;
+
+  const queryParams = new URLSearchParams();
+
+  if (topic) {
+    queryParams.append("topic", topic);
+  }
+  if (sortBy) {
+    queryParams.append("sort_by", sortBy);
+  }
+  if (order) {
+    queryParams.append("order", order);
+  }
+
+  if (queryParams.toString()) {
+    url += `?${queryParams.toString()}`;
+  }
+
+  return api
+    .get(url)
+    .then(({ data: { articles } }) => {
+      return articles;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 const getArticleById = (article_id) => {
@@ -45,7 +68,7 @@ const getArticlesByTopic = (topic) => {
 };
 
 export {
-  getAllArticles,
+  getArticles,
   getArticleById,
   getCommentsByArticleId,
   updateArticleById,

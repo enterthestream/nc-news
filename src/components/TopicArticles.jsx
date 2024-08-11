@@ -1,19 +1,23 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getArticlesByTopic } from "../api";
+import { useEffect, useState, useContext } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import { getArticles } from "../api";
 import ArticleCard from "./ArticleCard";
 import Header from "./Header";
+import { getSearchParamsValues } from "../utils";
+import SortByDropdown from "./SortByDropdown";
 
 export default function TopicArticles() {
   const { topic } = useParams();
+  const [searchParams] = useSearchParams();
   const [articles, setArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
+  const { sortBy, order } = getSearchParamsValues(searchParams);
   useEffect(() => {
-    getArticlesByTopic(topic)
-      .then(({ data: { articles } }) => {
-        console.log(articles);
-        setArticles(articles);
+    setIsLoading(true);
+    getArticles(topic, sortBy, order)
+      .then((fetchedArticles) => {
+        setArticles(fetchedArticles);
       })
       .catch((err) => {
         console.error(err);
@@ -21,17 +25,17 @@ export default function TopicArticles() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [topic]);
-  console.log(articles);
+  }, [topic, sortBy, order]);
 
   if (isLoading) {
-    <h2>loading...</h2>;
+    return <h2>loading...</h2>;
   }
 
   return (
     <div>
       <Header />
       <h1>{topic}</h1>
+      <SortByDropdown />
       <section>
         {articles.map((article) => {
           const {
